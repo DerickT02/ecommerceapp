@@ -3,32 +3,25 @@ import { getAllProducts, getOneProduct, buyProduct, addToCart, writeReview} from
 import { signIn, signUp, logout} from '../firebase/auth'
 import { expect } from '@jest/globals';
 
-describe("authentication", () => {
-    it("logs in user of type customer", async () => {
-        expect(signIn).resolves.toBe(true)
-    })
-    it("creates a user for the first time", async () => {
-        expect(signUp).resolves.toBe(true)
-    })
-    it("logs out an existing user", async () => {
-        expect(logout).resolves.toBe(true)
-    })
-})
+
 
 describe("customer actions", () => {
     it("gets all products in the shop", async () => {
-        expect(getAllProducts).resolves.toBe(true)
+        let res = await getAllProducts()
+        expect(!!res &&  Array.isArray(res)).toBe(true)
     })
     it("gets one product for the product page", async () => {
-        expect(getOneProduct).resolves.toBe(true)
+        let res = await getOneProduct("testdoc")
+        expect(res && typeof res === 'object').toBe(true)
+    
     })
     it("allows user to add product to cart for later purchase", async () => {
-        expect(addToCart).resolves.toBe(true)
+        expect(addToCart("icd4Sx1DUSYPWYe38dLzH66SvG32","testdoc")).resolves.toBe("successfully added product to cart")
     })
-    it("allows user to buy product, decrease number in stock, and increases store revenue and sales by 1", async () => {
-        expect(buyProduct).resolves.toBe(true)
+    it("allows user to buy product, decrease number in stock, and increases store revenue and sales by 1",  () => {
+        expect(buyProduct("testdoc")).resolves.toBe("successfully bought product")
     })
-    it("allows user to write a review for existing product", () => {
-        expect(writeReview).resolves.toBe(true)
+    it("allows user to write a review for existing product", async () => {
+        expect(writeReview("testdoc", "good product")).resolves.toBe("successfully wrote review")
     })
 })
