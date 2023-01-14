@@ -1,0 +1,45 @@
+
+
+
+.nav{
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 50px;
+  align-items: baseline;
+  background-color: black;
+  color: white;
+  font-size: 20px;
+  padding-bottom: 10px;
+}
+
+.navTitle{
+  margin-top: 12px;
+  margin-left: 10px;
+  color: white;
+  
+
+}
+
+.navOptions{
+  text-align: end;
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+  margin-left: 1350px;
+  
+  color: white;
+
+}
+
+.welcome{
+  display: flex;
+  margin-left: 30px;
+}
+
+.welcome .welcomeImg{
+
+  transform: rotate(45);
+}
+
+
