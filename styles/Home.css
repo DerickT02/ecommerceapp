@@ -1,45 +1,434 @@
 
 
-
-.nav{
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  height: 50px;
-  align-items: baseline;
-  background-color: black;
-  color: white;
-  font-size: 20px;
-  padding-bottom: 10px;
-}
-
-.navTitle{
-  margin-top: 12px;
-  margin-left: 10px;
-  color: white;
+@media screen and (max-width: 420px){
+  .nav{
+    top: 0;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 50px;
+    align-items: baseline;
+    background-color: black;
+    color: white;
+    font-size: 18px;
+    padding-bottom: 10px;
+    position: fixed;
+    z-index: 1;
+  }
   
-
-}
-
-.navOptions{
-  text-align: end;
-  display: flex;
-  flex-direction: row;
-  gap: 15px;
-  margin-left: 1350px;
+  .navTitle{
+    margin-top: 10px;
+    color: white;
+    flex-grow: 1;
+   
+  }
   
-  color: white;
+  .navOptions{
+    display: flex;
+    flex-direction: row;
+    gap: 7px;
+    
+    
+    color: white;
+  
+  }
+  
+  .welcome{
 
+    display: flex;
+    flex-direction: column-reverse;
+   
+    margin-top: 10vmin;
+    gap: 10vmin;
+   
+   
+   
+  }
+  
+  .welcome h1{
+    font-weight: 400;
+    font-size: 40px;
+    line-height: 20vmin;
+    text-align: center;
+    
+  
+    
+  }
+
+  .welcomeButton{
+    margin-right: 20%;
+  }
+  
+  .welcomeButton button{
+    
+    width: 175px;
+    height: 50px;
+    
+    background: #000000;
+    color: white;
+    font-size: large;
+    border-style: none;
+    margin-top: 10%;
+    
+    
+    
+    
+  
+  }
+  
+  .welcome .welcomeImg img{
+    max-width: 100%;
+    height: auto;
+    flex-grow: 1;
+  }
+  
+  .welcome .welcomeImg{
+   margin-top: 100px;
+    transform: rotate(-45deg);
+    
+  }
 }
 
-.welcome{
-  display: flex;
-  margin-left: 30px;
+
+
+@media screen and (max-width: 479px){
+  .nav{
+    top: 0;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 50px;
+    align-items: baseline;
+    background-color: black;
+    color: white;
+    font-size: 18px;
+    padding-bottom: 10px;
+    position: fixed;
+    z-index: 1;
+  }
+  
+  .navTitle{
+    margin-top: 10px;
+    margin-left: 10px;
+    color: white;
+    flex-grow: 1;
+
+   
+  }
+  
+  .navOptions{
+    display: flex;
+    flex-direction: row;
+    gap: 7px;
+    margin-right: 10px;
+    color: white;
+  
+  }
+  
+  .welcome{
+
+    display: flex;
+    flex-direction: column-reverse;
+   justify-content: space-around;
+   margin-top: 10vmin;
+   gap: 10vmin;
+   
+   
+  }
+  
+  .welcome h1{
+    font-weight: 400;
+    font-size: 40px;
+    line-height: 20vmin;
+    text-align: center;
+    
+  
+    
+  }
+  
+  .welcome button{
+    text-align: center;
+    width: 175px;
+    height: 50px;
+    left: 230px;
+    top: 647px;
+    background: #000000;
+    color: white;
+    font-size: large;
+    border-style: none;
+    margin-top: 10%;
+    margin-left: 30%;
+  
+  }
+  
+  .welcome .welcomeImg img{
+    max-width: 100%;
+    height: auto;
+    flex-grow: 1;
+  }
+  
+  .welcome .welcomeImg{
+   margin-top: 100px;
+    transform: rotate(-45deg);
+    
+  }
 }
 
-.welcome .welcomeImg{
+@media screen and (max-width: 599px){
+  .nav{
+    top: 0;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 50px;
+    align-items: baseline;
+    background-color: black;
+    color: white;
+    font-size: 18px;
+    padding-bottom: 10px;
+    position: fixed;
+    z-index: 1;
+  }
+  
+  .navTitle{
+    margin-top: 10px;
+    margin-left: 10px;
+    color: white;
+    flex-grow: 1;
 
-  transform: rotate(45);
+   
+  }
+  
+  .navOptions{
+    display: flex;
+    flex-direction: row;
+    gap: 7px;
+    margin-right: 10px;
+    color: white;
+  
+  }
+  
+  .welcome{
+
+    display: flex;
+    flex-direction: column-reverse;
+   justify-content: space-around;
+   margin-top: 10vmin;
+   gap: 10vmin;
+   
+   
+  }
+  
+  .welcome h1{
+    font-weight: 400;
+    font-size: 40px;
+    line-height: 20vmin;
+    margin-top: 100px;
+    text-align: center;
+    
+  
+    
+  }
+  
+  .welcome button{
+    text-align: center;
+    width: 175px;
+    height: 50px;
+    left: 230px;
+    top: 647px;
+    background: #000000;
+    color: white;
+    font-size: large;
+    border-style: none;
+    margin-top: 5%;
+    margin-left: 35%;
+  
+  }
+  
+  .welcome .welcomeImg img{
+    max-width: 100%;
+    height: auto;
+    flex-grow: 1;
+  }
+  
+  .welcome .welcomeImg{
+   margin-top: 150px;
+    transform: rotate(-45deg);
+    
+  }
 }
+
+@media screen and (max-width: 768px){
+  .nav{
+    top: 0;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 50px;
+    align-items: baseline;
+    background-color: black;
+    color: white;
+    font-size: 18px;
+    padding-bottom: 10px;
+    position: fixed;
+    z-index: 1;
+  }
+  
+  .navTitle{
+    margin-top: 10px;
+    margin-left: 10px;
+    color: white;
+    flex-grow: 1;
+
+   
+  }
+  
+  .navOptions{
+    display: flex;
+    flex-direction: row;
+    gap: 7px;
+    margin-right: 10px;
+    color: white;
+  
+  }
+  
+  .welcome{
+
+    display: flex;
+    flex-direction: column-reverse;
+   justify-content: space-around;
+   margin-top: 10vmin;
+   gap: 10vmin;
+   
+   
+  }
+  
+  .welcome h1{
+    font-weight: 400;
+    font-size: 40px;
+    line-height: 20vmin;
+    margin-top: 100px;
+    text-align: center;
+    
+  
+    
+  }
+  
+  .welcome button{
+    text-align: center;
+    width: 175px;
+    height: 50px;
+    left: 230px;
+    top: 647px;
+    background: #000000;
+    color: white;
+    font-size: large;
+    border-style: none;
+    margin-top: 5%;
+    margin-left: 40%;
+  
+  }
+  
+  .welcome .welcomeImg img{
+    max-width: 100%;
+    height: auto;
+    flex-grow: 1;
+  }
+  
+  .welcome .welcomeImg{
+   margin-top: 150px;
+    transform: rotate(-45deg);
+    
+  }
+}
+
+
+
+@media screen and (min-width: 1024px) {
+  .nav{
+    top: 0;
+
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 50px;
+    align-items: baseline;
+    background-color: black;
+    color: white;
+    font-size: 20px;
+    padding-bottom: 12px;
+    position: fixed;
+    z-index: 1;
+  }
+  
+  .navTitle{
+    margin-top: 10px;
+    color: white;
+    flex-grow: 1;
+    margin-left: 5%;
+  }
+  
+  .navOptions{
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    margin-right: 3%;
+    color: white;
+  
+  }
+  
+  .welcome{
+    display: flex;
+    flex-direction: row;
+   justify-content: space-around;
+   gap: 10vmin;
+   
+   
+  }
+  
+  .welcome h1{
+    font-weight: 400;
+    font-size: 10vmin;
+    line-height: 20vmin;
+    margin-left: 2vmin;
+    margin-top: 10vmin;
+  
+    
+  }
+
+  .welcomeButton{
+    margin-right: 1%;
+  }
+  
+  .welcomeButton button{
+    width: 385px;
+    height: 100px;
+    left: 230px;
+    top: 647px;
+    background: #000000;
+    color: white;
+    font-size: large;
+    border-style: none;
+    margin-top: 50px;
+    margin-left: 2vmin;
+  
+  }
+  
+  .welcome .welcomeImg img{
+    max-width: 100%;
+    height: auto;
+    flex-grow: 1;
+  }
+  
+  .welcome .welcomeImg{
+    margin-top: 13%;
+    transform: rotate(-45deg);
+    
+  }
+  
+}
+
+
+
 
 
