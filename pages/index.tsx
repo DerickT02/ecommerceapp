@@ -56,13 +56,13 @@ export default function Home() {
       </div>
 
     {/**/}
-      <div className = "grid grid-cols-1 gap-5 lg:grid-cols-3 lg:grid-rows-3 lg:gap-5 mt-9 place-items-center">
+      <div className = "grid grid-cols-1 gap-5 lg:grid-cols-3 lg:grid-rows-3 lg:gap-10 mt-[100px] place-items-center">
         {productsList.map((product) => {
           return(
-            <div className = "text-center">
+            <div className = "w-[80%] pt-1 pb-1 pl-9 pr-9 lg:pt-[85px] lg:pb-[85px] lg:w-[479px] lg:h-[382px] shadow-[0px_0px_60px_0px_rgba(0,0,0,0.3)]">
             <Link href = {`/product/${product.id}`}>
-              <div className = "text-center">
-                <img className = "text-center  w-[300px] h-[300px] lg:w-[400px] lg:h-[400px]" src = {product.productImage} ></img>
+              <div className = "flex grow flex-col place-items-center">
+                <img className = "w-[200px] h-[200px] lg:w-[200px] lg:h-[200px]"  src = {product.productImage} ></img>
                 <h2>{product.productName}</h2>
                 <h3>${product.productPrice}</h3>
               </div>
