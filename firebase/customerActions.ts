@@ -17,7 +17,7 @@ export async function getAllProducts(){
     console.log(result)
     return result
 }
-export async function getOneProduct(id: string){
+export async function getOneProduct(id: any){
     
     let selectedProduct = doc(db, "products", id)
     let selectedProductRef = await getDoc(selectedProduct)

@@ -41,7 +41,7 @@ export default function Home() {
         <div className = "flex flex-col-reverse text-center justify-center lg:flex-row ">
           <div>
           <h1 className = "text-center text-8xl mb-12 lg:mb-10">Find All Your Keyboard needs here</h1>
-          <button className = "bg-black text-white sm: text-center sm: w-[385px] sm: h-[100px] sm: mt-3">Shop now</button>
+          <button className = "bg-black text-white sm:text-center sm: w-[385px] sm: h-[100px] sm: mt-3">Shop now</button>
           </div>
 
         <img
@@ -60,7 +60,10 @@ export default function Home() {
         {productsList.map((product) => {
           return(
             <div className = "w-[80%] pt-1 pb-1 pl-9 pr-9 lg:pt-[85px] lg:pb-[85px] lg:w-[479px] lg:h-[382px] shadow-[0px_0px_60px_0px_rgba(0,0,0,0.3)]">
-            <Link href = {`/product/${product.id}`}>
+            <Link href = {{
+              pathname: "/product/[productId]",
+              query:{productId: product.id}
+            }}>
               <div className = "flex grow flex-col place-items-center">
                 <img className = "w-[200px] h-[200px] lg:w-[200px] lg:h-[200px]"  src = {product.productImage} ></img>
                 <h2>{product.productName}</h2>
