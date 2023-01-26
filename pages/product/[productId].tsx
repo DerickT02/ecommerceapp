@@ -6,13 +6,22 @@ import { useEffect, useState } from 'react'
 
 export default function Home() {
   const [productName, setProductName] = useState("")
+  const [productImage, setProductImage] = useState("")
+  const [productPrice, setProductPrice] = useState(0)
+  const [reviews, setReviews] = useState<any[]>([])
+  const [rating, setRating] = useState(0.0)
+
   const router = useRouter()
   const productUid = router.query.productId
-  console.log(productUid)
 
   useEffect(() => {
     getOneProduct(productUid).then((res) => {
+      console.log(res)
       setProductName(res?.productName)
+      setProductImage(res?.productImage)
+      setProductPrice(res?.productPrice)
+      setReviews(res?.reviews)
+      
     })
   }, [])
 
@@ -26,6 +35,9 @@ export default function Home() {
       </Head>
       <h1>Product</h1>
       <h1>{productName}</h1>
+      <h1>{productPrice}</h1>
+      <img src = {productImage}></img>
+      {reviews.length === 0 ? "No reviews" : "Reviews"}
     
       
     </div>
