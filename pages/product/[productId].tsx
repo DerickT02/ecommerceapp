@@ -2,6 +2,7 @@ import Head from 'next/head'
 import  { useRouter } from 'next/router'
 import { getOneProduct } from "../../firebase/customerActions"
 import { useEffect, useState } from 'react'
+import Link from 'next/link'
 
 
 export default function Home() {
@@ -38,9 +39,10 @@ export default function Home() {
           The Keyboard Shop
         </div>
         <div className = "navOptions">
+          <Link href = {{pathname: "/auth/login"}}><p>Login/Sign Up</p></Link>
           <p>Cart</p>
-          <p>Profile</p>
-          <p>Menu</p>
+          
+          <p>Home</p>
         </div>
       </div>
 

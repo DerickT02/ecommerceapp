@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
+import { auth } from '../firebase/config'
 
 import { useState, useEffect } from 'react'
 import { getAllProducts } from '../firebase/customerActions'
@@ -12,6 +13,7 @@ export default function Home() {
   useEffect(() => {
     getAllProducts().then((res) => {
       setProductsList(res)
+      console.log(auth)
     })
   }, [])
   
@@ -23,9 +25,9 @@ export default function Home() {
           The Keyboard Shop
         </div>
         <div className = "navOptions">
+          <Link href = {{pathname: "/auth/login"}}><p>Login/Sign Up</p></Link>
           <p>Cart</p>
-          <p>Profile</p>
-          <p>Menu</p>
+          <p>Home</p>
         </div>
       </div>
     
