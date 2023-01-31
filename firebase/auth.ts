@@ -1,5 +1,5 @@
 import { auth, db } from "./config";
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { setDoc, doc } from "firebase/firestore"
 import { resolve } from "path";
 
@@ -28,5 +28,10 @@ export async function signIn(email: string, password: string){
     })
 }
 export function logout(){
-    return false
+    signOut(auth).then(() => {
+        console.log("Sign Out Successful")
+    })
+    .catch((error) => {
+        console.log(error)
+    })
 }

@@ -5,17 +5,26 @@ import { auth } from '../firebase/config'
 
 import { useState, useEffect } from 'react'
 import { getAllProducts } from '../firebase/customerActions'
+import { logout } from '../firebase/auth'
 
 
 export default function Home() {
   const [productsList, setProductsList] = useState<any[]>([])
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
 
   useEffect(() => {
     getAllProducts().then((res) => {
       setProductsList(res)
-      console.log(auth)
+      if(auth.currentUser != undefined){
+        setIsLoggedIn(true)
+      }
     })
   }, [])
+
+  const toggleLogout = () => {
+    logout()
+    setIsLoggedIn(false)
+  }
   
   console.log(productsList)
   return (
@@ -25,7 +34,7 @@ export default function Home() {
           The Keyboard Shop
         </div>
         <div className = "navOptions">
-          <Link href = {{pathname: "/auth/login"}}><p>Login/Sign Up</p></Link>
+          {!isLoggedIn ? <Link href = {{pathname: "/auth/login"}}><p>Login/Sign Up</p></Link> : <p onClick = {toggleLogout}>Logout</p>}
           <p>Cart</p>
           <p>Home</p>
         </div>

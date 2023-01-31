@@ -8,7 +8,7 @@ export default function Login(){
     const [isLoggedIn, setIsLoggedIn] = useState(false)
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
-
+    const [isLoggedInAuth, setIsLoggedInAuth] = useState(false)
     
 
     const toggleLoggedIn = () => {
