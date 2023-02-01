@@ -21,19 +21,6 @@ export default function Login(){
 
     
 
-    const signUp = async (email: string, password: string) => {
-        let credential = await createUserWithEmailAndPassword(auth, email, password)
-        console.log(credential)
-        await setDoc(doc(db, "users", credential.user.uid), {
-            email: email,
-            role: "customer",
-            cart: []
-        }).then(() => {
-            return "successfully created customer"
-        }).catch(err => {
-            alert(err.message)
-        })
-    }
 
     const handleAuthEvents = async () => {
         if(isLoggedIn){
@@ -52,17 +39,34 @@ export default function Login(){
                     default:
                         setLoginStatus(error.code);
                         break;
-                    
-
-                }
-                
+                } 
             })
         }
         else{
-            signUp(email, password).then((res) => {
-                console.log(res)
-            })
-           
+            let credential = await createUserWithEmailAndPassword(auth, email, password).then((res) => {
+                 setDoc(doc(db, "users", res.user.uid), {
+                    email: email,
+                    role: "customer",
+                    cart: []
+                })
+                setLoginStatus("Success")
+                Router.push("/")
+                
+            }).catch(error => {
+                switch(error.code){
+                    case "auth/email-already-in-use":
+                        setLoginStatus("Email Already Exists");
+                        break;
+                    case "auth/invalid-password":
+                        setLoginStatus("Invalid Password. Must be 6 characters or longer")
+                        break;
+                    default:
+                        setLoginStatus(error.code);
+                        break;
+                    }
+                })
+            console.log(credential)
+               
         }
     }
 
