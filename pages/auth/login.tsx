@@ -1,7 +1,10 @@
 import { useState } from "react"
-import  {signIn, signUp} from '../../firebase/auth'
+import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth"
+import { setDoc, doc } from "firebase/firestore"
+import { auth, db } from "../../firebase/config"
 import Link from "next/link"
 import Router from "next/router"
+import { resolve } from "path"
 
 
 export default function Login(){
@@ -9,22 +12,57 @@ export default function Login(){
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [isLoggedInAuth, setIsLoggedInAuth] = useState(false)
+    const [loginStatus, setLoginStatus] = useState("")
     
 
     const toggleLoggedIn = () => {
         setIsLoggedIn((prev) => !prev)
     }
 
-    const handleAuthEvents = () => {
+    
+
+    const signUp = async (email: string, password: string) => {
+        let credential = await createUserWithEmailAndPassword(auth, email, password)
+        console.log(credential)
+        await setDoc(doc(db, "users", credential.user.uid), {
+            email: email,
+            role: "customer",
+            cart: []
+        }).then(() => {
+            return "successfully created customer"
+        }).catch(err => {
+            alert(err.message)
+        })
+    }
+
+    const handleAuthEvents = async () => {
         if(isLoggedIn){
-            signIn(email, password).then((res) => {
-                console.log(res)
+            await signInWithEmailAndPassword(auth, email, password).then((userCredential: any) => {
+                setLoginStatus("Success")
+                Router.push("/")
             })
-            Router.push("/")
+            .catch((error) => {
+                switch(error.code){
+                    case "auth/invalid-email":
+                        setLoginStatus("Invalid Email");
+                        break;
+                    case "auth/wrong-password":
+                        setLoginStatus("Incorrect Password")
+                        break;
+                    default:
+                        setLoginStatus(error.code);
+                        break;
+                    
+
+                }
+                
+            })
         }
         else{
-            signUp(email, password)
-            Router.push("/")
+            signUp(email, password).then((res) => {
+                console.log(res)
+            })
+           
         }
     }
 
@@ -51,6 +89,8 @@ export default function Login(){
                 <button className = "mt-6 w-[70%] h-[70px] border border-solid border-white rounded-sm hover:bg-white hover:text-black hover:transition" onClick = {handleAuthEvents}>{!isLoggedIn ? "Sign Up" : "Log In"}</button>
                 <p className="mt-3">{isLoggedIn ? "Don't Have An Account? " : "Have an Account? "}<span className = "text-slate-500 hover:text-white hover:transition"onClick = {toggleLoggedIn}>{isLoggedIn ? "Sign Up" : "Log In"}</span></p>
             </div>
+
+            {loginStatus}
         </div>
     )
 }
