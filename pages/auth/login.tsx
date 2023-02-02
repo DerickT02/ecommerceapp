@@ -81,7 +81,6 @@ export default function Login(){
                     <div className = "navOptions">
                     <Link href = {{pathname: "/auth/login"}}><p>Login/Sign Up</p></Link>
                     <p>Cart</p>
-                    
                     <p>Home</p>
                     </div>
             </div>
