@@ -2,6 +2,7 @@ import Head from 'next/head'
 import  { useRouter } from 'next/router'
 import { getOneProduct } from "../../firebase/customerActions"
 import { useEffect, useState } from 'react'
+import { logout } from '../../firebase/auth'
 import Link from 'next/link'
 
 
@@ -11,19 +12,30 @@ export default function Home() {
   const [productPrice, setProductPrice] = useState(0)
   const [reviews, setReviews] = useState<any[]>([])
   const [rating, setRating] = useState(0.0)
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
 
   const router = useRouter()
-  const productUid = router.query.productId
+  
+
+  const toggleLogout = () => {
+    logout()
+    setIsLoggedIn(false)
+  }
 
   useEffect(() => {
-    getOneProduct(productUid).then((res) => {
-      console.log(res)
-      setProductName(res?.productName)
-      setProductImage(res?.productImage)
-      setProductPrice(res?.productPrice)
-      setReviews(res?.reviews)
-      
-    })
+    let productUid;
+    if(router.isReady){
+      const { productId } = router.query
+      productUid = productId
+      getOneProduct(productUid).then((res) => {
+       
+        setProductName(res?.productName)
+        setProductImage(res?.productImage)
+        setProductPrice(res?.productPrice)
+        setReviews(res?.reviews)
+        
+      })
+    }
   }, [])
 
   return (
@@ -39,7 +51,7 @@ export default function Home() {
           The Keyboard Shop
         </div>
         <div className = "navOptions">
-          <Link href = {{pathname: "/auth/login"}}><p>Login/Sign Up</p></Link>
+        {!isLoggedIn ? <Link href = {{pathname: "/auth/login"}}><p>Login/Sign Up</p></Link> : <p onClick = {toggleLogout}>Logout</p>}
           <p>Cart</p>
           
           <p>Home</p>
@@ -61,18 +73,15 @@ export default function Home() {
             <button className = "bg-green-500 text-white w-[70%] h-[50px] sm:w-[100%] sm:h-[70px] lg:w-[482px] lg:h-[81px] rounded-lg mb-[10%]">Buy Now</button>
             {reviews.length === 0 ? "No reviews" : "Reviews"}
           </div>
-        </div>
-        
-        
-        
-        
-        
-        
+        </div>    
       </div>
-      
-      
-      
     </div>
     
   )
+}
+
+
+export async function getServerSideProps(context: any){
+  console.log(context.params)
+  return {props: {"hello": "world"}}
 }
