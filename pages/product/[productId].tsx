@@ -3,7 +3,9 @@ import  { useRouter } from 'next/router'
 import { getOneProduct } from "../../firebase/customerActions"
 import { useEffect, useState } from 'react'
 import { logout } from '../../firebase/auth'
+
 import Link from 'next/link'
+import Nav from '../../components/nav'
 
 
 export default function Home() {
@@ -12,15 +14,12 @@ export default function Home() {
   const [productPrice, setProductPrice] = useState(0)
   const [reviews, setReviews] = useState<any[]>([])
   const [rating, setRating] = useState(0.0)
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
+
 
   const router = useRouter()
   
 
-  const toggleLogout = () => {
-    logout()
-    setIsLoggedIn(false)
-  }
+  
 
   useEffect(() => {
     let productUid;
@@ -46,18 +45,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <div className = "nav">
-        <div className = "navTitle">
-          The Keyboard Shop
-        </div>
-        <div className = "navOptions">
-        {!isLoggedIn ? <Link href = {{pathname: "/auth/login"}}><p>Login/Sign Up</p></Link> : <p onClick = {toggleLogout}>Logout</p>}
-          <p>Cart</p>
-          
-          <p>Home</p>
-        </div>
-      </div>
-
+      <Nav />
       
       <div className = "flex flex-col gap-[9] lg:flex-row mt-[100px] place-items-center">
         <div className = "text-center  lg:place-items-center">
