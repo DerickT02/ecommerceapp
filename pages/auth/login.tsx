@@ -5,6 +5,7 @@ import { auth, db } from "../../firebase/config"
 import Link from "next/link"
 import Router from "next/router"
 import { resolve } from "path"
+import Nav from "../../components/nav"
 
 
 export default function Login(){
@@ -74,16 +75,7 @@ export default function Login(){
     console.log(password)
     return (
         <div className = "flex flex-col place-items-center">
-            <div className = "nav">
-                    <div className = "navTitle">
-                    The Keyboard Shop
-                    </div>
-                    <div className = "navOptions">
-                    <Link href = {{pathname: "/auth/login"}}><p>Login/Sign Up</p></Link>
-                    <p>Cart</p>
-                    <p>Home</p>
-                    </div>
-            </div>
+            <Nav />
 
             <div className = "flex flex-col place-items-center bg-black text-white pt-5 pb-10 pl-3 mt-[100px]  w-[90%] lg:w-[45%] outline-1 outline-slate-600">
                 <h1 className = "text-6xl">{isLoggedIn ? "Login" : "Sign Up"}</h1>
