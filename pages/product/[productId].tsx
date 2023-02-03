@@ -19,7 +19,7 @@ export default function Home() {
   const router = useRouter()
   
 
-  
+
 
   useEffect(() => {
     let productUid;
@@ -45,8 +45,8 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Nav />
       
+      <Nav />
       <div className = "flex flex-col gap-[9] lg:flex-row mt-[100px] place-items-center">
         <div className = "text-center  lg:place-items-center">
           <img className = "lg:ml-[100px]" src = {productImage}></img>
@@ -59,6 +59,7 @@ export default function Home() {
           <div className = "flex flex-col place-items-center">
             <button className = "bg-black text-white w-[70%] h-[50px] sm:w-[100%] sm:h-[70px] lg:w-[482px] lg:h-[81px] rounded-lg mb-[3%]">Add To Cart</button>
             <button className = "bg-green-500 text-white w-[70%] h-[50px] sm:w-[100%] sm:h-[70px] lg:w-[482px] lg:h-[81px] rounded-lg mb-[10%]">Buy Now</button>
+            {rating}
             {reviews.length === 0 ? "No reviews" : "Reviews"}
           </div>
         </div>    

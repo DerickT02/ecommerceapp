@@ -10,18 +10,12 @@ import { logout } from '../firebase/auth'
 
 export default function Home() {
   const [productsList, setProductsList] = useState<any[]>([])
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
 
   useEffect(() => {
     getAllProducts().then((res) => {
       setProductsList(res)
     })
   }, [])
-
-  const toggleLogout = () => {
-    logout()
-    setIsLoggedIn(false)
-  }
   
   console.log(productsList)
   return (
