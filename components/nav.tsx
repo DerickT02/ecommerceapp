@@ -19,7 +19,7 @@ export default function Nav(){
     }
 
     const goToCart = () => {
-        Router.push("/cart")
+        Router.push("/checkout")
     }
 
     useEffect(() => {
