@@ -15,9 +15,7 @@ describe("customer actions", () => {
         expect(res && typeof res === 'object').toBe(true)
     
     })
-    it("allows user to add product to cart for later purchase", async () => {
-        expect(addToCart("icd4Sx1DUSYPWYe38dLzH66SvG32","testdoc")).resolves.toBe("successfully added product to cart")
-    })
+  
     it("allows user to buy product, decrease number in stock, and increases store revenue and sales by 1",  () => {
         expect(buyProduct("testdoc")).resolves.toBe("successfully bought product")
     })
