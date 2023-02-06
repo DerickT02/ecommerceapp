@@ -45,15 +45,22 @@ export async function buyProduct(id: string){
     })
     return "successfully bought product"
 }
-export async function addToCart(customerID: string, productObject: object){
+export async function addToCart(customerID: string, productObject: object, productID: any){
     let currentCustomer = doc(db, "users", customerID)
     let currentCustomerRef = await getDoc(currentCustomer)
     let cart = currentCustomerRef.data()?.cart
-    cart.push(productObject)
-    let newCart = cart
-    await updateDoc(currentCustomer, {
-        cart: newCart
-    })
+    let itemInCart = cart.find((item: any) => item.id == productID)
+    if(itemInCart){
+        alert("Item Already In cart")
+        return
+    }
+    else{
+        cart.push(productObject)
+        let newCart = cart
+        await updateDoc(currentCustomer, {
+            cart: newCart
+        })
+    }
     return "successfully added product to cart"
 }
 export async function writeReview(id: any, review: string){
@@ -73,13 +80,7 @@ export async function getCart(customerID: string){
     let currentCustomer = doc(db, "users", customerID)
     let currentCustomerRef = await getDoc(currentCustomer)
     let cart = currentCustomerRef.data()?.cart
-    let result:any[] = []
-    for(let item in cart){
-        getOneProduct(cart[item]).then((res) => {
-            result.push(res)
-        })
-
-    }
+    let result = cart;
     console.log("result", result)
     return result
 }

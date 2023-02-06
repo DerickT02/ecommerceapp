@@ -17,6 +17,7 @@ export default function Home() {
   const [product, setProduct] = useState({})
   const [rating, setRating] = useState(0.0)
   const [userID, setUserID] = useState("")
+  const [productID, setProductId] = useState("")
 
 
   const router = useRouter()
@@ -30,6 +31,8 @@ export default function Home() {
 
     if(router.isReady){
       const { productId } = router.query
+      
+      setProductId(String(productId))
       productUid = productId
       getOneProduct(productUid).then((res) => {
        console.log(res)
@@ -38,7 +41,14 @@ export default function Home() {
         setProductPrice(res?.productPrice)
         setReviews(res?.reviews)
         setRating(res?.rating)
-        setProduct(res)
+        setProduct({
+          id: productId,
+          productName: res?.productName,
+          productImage: res?.productImage,
+          productPrice: res?.productPrice,
+          rating: res?.rating,
+          reviews: res?.reviews
+        })
         
       })
     }
@@ -78,7 +88,7 @@ export default function Home() {
             <h1 className = "text-3xl lg:text-5xl">${productPrice}</h1>
           </div> 
           <div className = "flex flex-col place-items-center">
-            <button onClick={() => {addToCart(userID, product)}} className = "bg-black text-white w-[70%] h-[50px] sm:w-[100%] sm:h-[70px] lg:w-[482px] lg:h-[81px] rounded-lg mb-[3%]">Add To Cart</button>
+            <button onClick={() => {addToCart(userID, product, productID)}} className = "bg-black text-white w-[70%] h-[50px] sm:w-[100%] sm:h-[70px] lg:w-[482px] lg:h-[81px] rounded-lg mb-[3%]">Add To Cart</button>
             <button className = "bg-green-500 text-white w-[70%] h-[50px] sm:w-[100%] sm:h-[70px] lg:w-[482px] lg:h-[81px] rounded-lg mb-[10%]">Buy Now</button>
             {rating}
             {reviews.length === 0 ? "No reviews" : "Reviews"}
