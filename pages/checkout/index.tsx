@@ -1,25 +1,38 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { auth } from '../../firebase/config'
 import Router from 'next/router'
 import Nav from '../../components/nav'
 import { onAuthStateChanged } from 'firebase/auth'
+import { getCart, getOneProduct } from '../../firebase/customerActions'
 
 export default function Home() {
+  const [cart, setCart] = useState<any[]>([])
+
+
+
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if(user){
-          console.log(user.uid)
-          
+           getCart(user.uid).then((res) => {
+            console.log(res)
+            setCart(res)
+          })
       }
       else{
         Router.push("/auth/login")
       }
     })
   }, [])
+
+
+
+
+
+
 
   return (
     <div>
@@ -39,6 +52,14 @@ export default function Home() {
           <p>Product</p>
           <p>Quantity</p>
           <p>Total Price</p>
+          {cart.map((item) => {
+            return(
+              <>
+              {item.productName}
+              </>
+              
+            )
+          })}
         </div>
         <div>
 

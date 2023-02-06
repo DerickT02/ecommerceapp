@@ -1,11 +1,12 @@
 import Head from 'next/head'
 import  { useRouter } from 'next/router'
-import { getOneProduct } from "../../firebase/customerActions"
+import { getOneProduct, addToCart } from "../../firebase/customerActions"
 import { useEffect, useState } from 'react'
 import { logout } from '../../firebase/auth'
-
+import { auth } from '../../firebase/config'
 import Link from 'next/link'
 import Nav from '../../components/nav'
+import { onAuthStateChanged } from 'firebase/auth'
 
 
 export default function Home() {
@@ -13,7 +14,9 @@ export default function Home() {
   const [productImage, setProductImage] = useState("")
   const [productPrice, setProductPrice] = useState(0)
   const [reviews, setReviews] = useState<any[]>([])
+  const [product, setProduct] = useState({})
   const [rating, setRating] = useState(0.0)
+  const [userID, setUserID] = useState("")
 
 
   const router = useRouter()
@@ -23,20 +26,38 @@ export default function Home() {
 
   useEffect(() => {
     let productUid;
+    
+
     if(router.isReady){
       const { productId } = router.query
       productUid = productId
       getOneProduct(productUid).then((res) => {
-       
+       console.log(res)
         setProductName(res?.productName)
         setProductImage(res?.productImage)
         setProductPrice(res?.productPrice)
         setReviews(res?.reviews)
+        setRating(res?.rating)
+        setProduct(res)
         
       })
     }
   }, [])
 
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if(user){
+        setUserID(user.uid)
+      }
+      else{
+        console.log("No user")
+      }
+    })
+
+  }, [])
+
+
+  console.log("product", product)
   return (
     <div>
       <Head>
@@ -57,7 +78,7 @@ export default function Home() {
             <h1 className = "text-3xl lg:text-5xl">${productPrice}</h1>
           </div> 
           <div className = "flex flex-col place-items-center">
-            <button className = "bg-black text-white w-[70%] h-[50px] sm:w-[100%] sm:h-[70px] lg:w-[482px] lg:h-[81px] rounded-lg mb-[3%]">Add To Cart</button>
+            <button onClick={() => {addToCart(userID, product)}} className = "bg-black text-white w-[70%] h-[50px] sm:w-[100%] sm:h-[70px] lg:w-[482px] lg:h-[81px] rounded-lg mb-[3%]">Add To Cart</button>
             <button className = "bg-green-500 text-white w-[70%] h-[50px] sm:w-[100%] sm:h-[70px] lg:w-[482px] lg:h-[81px] rounded-lg mb-[10%]">Buy Now</button>
             {rating}
             {reviews.length === 0 ? "No reviews" : "Reviews"}
