@@ -1,5 +1,13 @@
 import { useState, useEffect } from "react";
+import { getOneProduct } from "../firebase/customerActions";
 
-export default function ProductCart(){
-    
+interface Props{
+    productID: string
+}
+
+export default function ProductCart(props: Props){
+    const [] = useState()
+    useEffect(() => {
+
+    },[])
 }

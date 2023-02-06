@@ -18,11 +18,16 @@ export async function getAllProducts(){
     return result
 }
 export async function getOneProduct(id: any){
-    
     let selectedProduct = doc(db, "products", id)
-    let selectedProductRef = await getDoc(selectedProduct)
-    console.log(selectedProductRef.data())
-    return selectedProductRef.data()
+    let returnObject: any = {}
+    let selectedProductRef = await getDoc(selectedProduct);
+    returnObject["productName"] = selectedProductRef.data()?.productName
+    returnObject["productImage"] = selectedProductRef.data()?.productImage
+    returnObject["productPrice"] = selectedProductRef.data()?.productPrice
+    returnObject["reviews"] = selectedProductRef.data()?.reviews
+    returnObject["rating"] = selectedProductRef.data()?.rating
+   
+    return returnObject
 }
 export async function buyProduct(id: string){
     let selectedProduct = doc(db, "products", id)
@@ -40,11 +45,11 @@ export async function buyProduct(id: string){
     })
     return "successfully bought product"
 }
-export async function addToCart(customerID: string, productID: string){
+export async function addToCart(customerID: string, productObject: object){
     let currentCustomer = doc(db, "users", customerID)
     let currentCustomerRef = await getDoc(currentCustomer)
     let cart = currentCustomerRef.data()?.cart
-    cart.push(productID)
+    cart.push(productObject)
     let newCart = cart
     await updateDoc(currentCustomer, {
         cart: newCart
@@ -62,3 +67,20 @@ export async function writeReview(id: any, review: string){
     })
     return "successfully wrote review"
 }
+
+
+export async function getCart(customerID: string){
+    let currentCustomer = doc(db, "users", customerID)
+    let currentCustomerRef = await getDoc(currentCustomer)
+    let cart = currentCustomerRef.data()?.cart
+    let result:any[] = []
+    for(let item in cart){
+        getOneProduct(cart[item]).then((res) => {
+            result.push(res)
+        })
+
+    }
+    console.log("result", result)
+    return result
+}
+
