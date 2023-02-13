@@ -38,14 +38,14 @@ export default function Home() {
        console.log(res)
         setProductName(res?.productName)
         setProductImage(res?.productImage)
-        setProductPrice(res?.productPrice)
+        setProductPrice(+res?.productPrice)
         setReviews(res?.reviews)
         setRating(res?.rating)
         setProduct({
           id: productId,
           productName: res?.productName,
           productImage: res?.productImage,
-          productPrice: res?.productPrice,
+          productPrice: +res?.productPrice,
           rating: res?.rating,
           reviews: res?.reviews
         })
