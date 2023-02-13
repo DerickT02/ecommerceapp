@@ -10,6 +10,7 @@ import { getCart, getOneProduct } from '../../firebase/customerActions'
 
 export default function Home() {
   const [cart, setCart] = useState<any[]>([])
+  const [total, setTotal] = useState(0.0)
 
 
 
@@ -21,6 +22,9 @@ export default function Home() {
            getCart(user.uid).then((res) => {
             console.log(res)
             setCart(res)
+            for(let item in res){
+              setTotal(prev => prev + res[item].productPrice)
+            }
           })
       }
       else{
@@ -81,6 +85,7 @@ export default function Home() {
           <div>
         </div>
         <h2 className = "mt-10 lg:text-left text-center">Total</h2>
+        {total}
       </div>
       {/*Checkout Information*/}
       
