@@ -8,9 +8,16 @@ import Nav from '../../components/nav'
 import { onAuthStateChanged } from 'firebase/auth'
 import { getCart, getOneProduct } from '../../firebase/customerActions'
 
+
+type quantityType = {
+  [key: string]: number
+}
+
 export default function Home() {
   const [cart, setCart] = useState<any[]>([])
   const [total, setTotal] = useState(0.0)
+  const [itemQuantity, setItemQuantity] = useState<quantityType>({})
+
 
 
 
@@ -24,6 +31,11 @@ export default function Home() {
             setCart(res)
             for(let item in res){
               setTotal(prev => prev + res[item].productPrice)
+              setItemQuantity(prev => ({
+                ...prev,
+                [res[item].productName]: 1,
+              }))
+              
             }
           })
       }
@@ -33,8 +45,30 @@ export default function Home() {
     })
   }, [])
 
+  console.log(itemQuantity)
 
-
+  const addOneProduct = (price: number, objectKey: string) => {
+    let quantityCopy : quantityType
+    quantityCopy = itemQuantity
+    quantityCopy[objectKey]++
+    setItemQuantity(quantityCopy)
+    setTotal(prev => prev + price)
+    
+    
+  }
+  const removeOneProduct = (price: number, objectKey: string) => {
+    if(itemQuantity[objectKey] == 0){
+      return;
+    }
+    let quantityCopy : quantityType
+    quantityCopy = itemQuantity
+    quantityCopy[objectKey]--
+    setItemQuantity(quantityCopy)
+    setTotal(prev => prev - price)
+    
+    
+  }
+  
 
 
 
@@ -62,7 +96,8 @@ export default function Home() {
           </div>
           <hr className = "hidden lg:block"/> 
           <div/>
-          {cart.map((item) => {
+          {cart.map((item, index) => {
+            console.log(index)
             return(
               <div className = "grid lg:grid-cols-4 place-items-center">
                 <div className = "flex lg:gap-4 flex-col lg:flex-row lg:place-items-center">
@@ -70,22 +105,22 @@ export default function Home() {
                   <p className = "text-center text-2xl lg:text-base">{item.productName}</p>
               </div>
               <div className = "text-2xl lg:text-lg">
-                <button>+</button>
-                1
-                <button>-</button>
+                <button onClick = {() => {addOneProduct(item.productPrice, item.productName)}}>+</button>
+                {itemQuantity[item.productName]}
+                <button onClick = {() => {removeOneProduct(item.productPrice, item.productName)}}>-</button>
               </div>
                 <div className = "lg:ml-[120px]">
-                  ${item.productPrice}
+                  ${item.productPrice * itemQuantity[item.productName]}
                 </div>
               
               </div>
-              
+                 
             )
           })}
           <div>
         </div>
         <h2 className = "mt-10 lg:text-left text-center">Total</h2>
-        {total}
+        ${total}
       </div>
       {/*Checkout Information*/}
       
