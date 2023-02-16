@@ -29,13 +29,13 @@ export async function getOneProduct(id: any){
    
     return returnObject
 }
-export async function buyProduct(id: string){
+export async function buyProduct(id: string, quantity: number){
     let selectedProduct = doc(db, "products", id)
     let selectedProductRef = await getDoc(selectedProduct)
     let currStock = selectedProductRef.data()?.stock
     let currSales = selectedProductRef.data()?.sales
-    let newStock = currStock - 1
-    let newSales = currSales + 1
+    let newStock = currStock - quantity
+    let newSales = currSales + quantity;
 
     await updateDoc(selectedProduct, {
         sales: newSales,
