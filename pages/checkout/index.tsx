@@ -6,7 +6,7 @@ import { auth } from '../../firebase/config'
 import Router from 'next/router'
 import Nav from '../../components/nav'
 import { onAuthStateChanged } from 'firebase/auth'
-import { getCart, getOneProduct } from '../../firebase/customerActions'
+import { getCart, getOneProduct, buyProduct } from '../../firebase/customerActions'
 
 
 type quantityType = {
@@ -31,9 +31,10 @@ export default function Home() {
             setCart(res)
             for(let item in res){
               setTotal(prev => prev + res[item].productPrice)
+              console.log(res[item])
               setItemQuantity(prev => ({
                 ...prev,
-                [res[item].productName]: 1,
+                [res[item].id]: 1,
               }))
               
             }
@@ -68,6 +69,12 @@ export default function Home() {
     
     
   }
+
+  const checkout = () => {
+    for(let item in itemQuantity){
+      buyProduct(item, itemQuantity[item])
+    }
+  }
   
 
 
@@ -83,7 +90,7 @@ export default function Home() {
       </Head>
 
       <Nav />
-     <div className = "mt-20 flex flex-col lg:gap-[25%] lg:flex-row">
+     <div className = "mt-20 flex flex-col lg:gap-[10%] lg:flex-row">
       {/*Checkout Products*/}
       <div className = "lg:ml-48">
         <h1 className = "text-5xl lg:text-left text-center">Checkout</h1>
@@ -105,12 +112,12 @@ export default function Home() {
                   <p className = "text-center text-2xl lg:text-base">{item.productName}</p>
               </div>
               <div className = "text-2xl lg:text-lg">
-                <button onClick = {() => {addOneProduct(item.productPrice, item.productName)}}>+</button>
-                {itemQuantity[item.productName]}
-                <button onClick = {() => {removeOneProduct(item.productPrice, item.productName)}}>-</button>
+                <button onClick = {() => {addOneProduct(item.productPrice, item.id)}}>+</button>
+                {itemQuantity[item.id]}
+                <button onClick = {() => {removeOneProduct(item.productPrice, item.id)}}>-</button>
               </div>
                 <div className = "lg:ml-[120px]">
-                  ${item.productPrice * itemQuantity[item.productName]}
+                  ${item.productPrice * itemQuantity[item.id]}
                 </div>
               
               </div>
@@ -124,8 +131,9 @@ export default function Home() {
       </div>
       {/*Checkout Information*/}
       
-      <div className = "text-center">
-        <h1 className = "text-5xl">Payment Info</h1>
+      <div className = "text-center text-white bg-black">
+        <h1 className = "text-3xl">Payment Info</h1>
+        <button onClick = {checkout}>Checkout</button>
       </div>
      </div>
       
