@@ -131,10 +131,22 @@ export default function Home() {
       </div>
       {/*Checkout Information*/}
       
-      <div className = "text-center text-white bg-black">
-        <h1 className = "text-3xl">Payment Info</h1>
-        <button onClick = {checkout}>Checkout</button>
-      </div>
+      <div className = "flex flex-col place-content-center mb-7 text-center text-white bg-black lg:pl-10 lg:pr-10 ">
+        <h1 className = "lg:text-3xl text-lg">Payment Info</h1>
+          <input placeholder = "First And Last Name" className = "mt-10 text-black"></input>
+          <input placeholder = "Shipping Address" className = "mt-10 text-black"></input>
+          <input placeholder = "Name On Card" className = "mt-10 text-black"></input>
+          <input placeholder = "Card Number" className = "mt-10 text-black"></input>
+        <div className = "mt-10 flex flex-row place-content-center">
+          <input placeholder='MM' className = "ml-1 lg:ml-2 w-[100px] text-black"></input>
+          <input placeholder = "YY" className = "ml-1 lg:ml-2 w-[100px] text-black"></input>
+          <input placeholder='XXX' className = "ml-1 lg:ml-2 w-[100px] text-black"></input>
+        </div>
+        <div>
+        <button className = "mt-4 w-[60%] lg:w-[50%] bg-sky-500 mb-4" onClick = {checkout}>Checkout</button>
+        </div>
+        
+      </div>  
      </div>
       
     
