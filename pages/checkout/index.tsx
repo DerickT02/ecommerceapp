@@ -97,7 +97,7 @@ export default function Home() {
        
         <div className = "hidden lg:flex flex-col lg:flex-row gap-x-56 mt-7">
           <p>Product</p>
-          <p>Quantity</p>
+          <p className = "ml-4">Quantity</p>
           <p>Total Price</p>
           
           </div>
@@ -111,10 +111,10 @@ export default function Home() {
                   <img className = "lg:w-[100px] lg:h-[100px] w-[200px] h-[200px]" src = {item.productImage}></img>
                   <p className = "text-center text-2xl lg:text-base">{item.productName}</p>
               </div>
-              <div className = "text-2xl lg:text-lg">
-                <button onClick = {() => {addOneProduct(item.productPrice, item.id)}}>+</button>
+              <div className = "text-2xl lg:text-lg border-[1px] border-black rounded-2xl pl-2 pr-2">
+                <button className = "mr-4" onClick = {() => {addOneProduct(item.productPrice, item.id)}}>+</button>
                 {itemQuantity[item.id]}
-                <button onClick = {() => {removeOneProduct(item.productPrice, item.id)}}>-</button>
+                <button className = "ml-4" onClick = {() => {removeOneProduct(item.productPrice, item.id)}}>-</button>
               </div>
                 <div className = "lg:ml-[120px]">
                   ${item.productPrice * itemQuantity[item.id]}
@@ -132,18 +132,18 @@ export default function Home() {
       {/*Checkout Information*/}
       
       <div className = "flex flex-col place-content-center mb-7 text-center text-white bg-black lg:pl-10 lg:pr-10 ">
-        <h1 className = "lg:text-3xl text-lg">Payment Info</h1>
-          <input placeholder = "First And Last Name" className = "mt-10 text-black"></input>
-          <input placeholder = "Shipping Address" className = "mt-10 text-black"></input>
-          <input placeholder = "Name On Card" className = "mt-10 text-black"></input>
-          <input placeholder = "Card Number" className = "mt-10 text-black"></input>
+        <h1 className = "lg:text-3xl text-lg mt-3">Payment Info</h1>
+          <input placeholder = "First And Last Name" className = "mt-10 indent-1 text-white bg-black pt-1 pb-1 border-[1px] border-solid border-white rounded-2xl"></input>
+          <input placeholder = "Shipping Address" className = "mt-10 indent-1 text-white bg-black pt-1 pb-1 border-[1px] border-solid border-white rounded-2xl"></input>
+          <input placeholder = "Name On Card" className = "mt-10 indent-1 text-white bg-black pt-1 pb-1 border-[1px] border-solid border-white rounded-2xl"></input>
+          <input placeholder = "Card Number" className = "mt-10 indent-1 text-white bg-black pt-1 pb-1 border-[1px] border-solid border-white rounded-2xl"></input>
         <div className = "mt-10 flex flex-row place-content-center">
-          <input placeholder='MM' className = "ml-1 lg:ml-2 w-[100px] text-black"></input>
-          <input placeholder = "YY" className = "ml-1 lg:ml-2 w-[100px] text-black"></input>
-          <input placeholder='XXX' className = "ml-1 lg:ml-2 w-[100px] text-black"></input>
+          <input placeholder='MM' className = "indent-1 ml-1 lg:ml-2 w-[100px] text-white bg-black border-[1px] border-solid border-white rounded-2xl"></input>
+          <input placeholder = "YY" className = "indent-1 ml-1 lg:ml-2 w-[100px] text-white bg-black border-[1px] border-solid border-white rounded-2xl"></input>
+          <input placeholder='XXX' className = "indent-1 ml-1 lg:ml-2 w-[100px] text-white bg-black border-[1px] border-solid border-white rounded-2xl"></input>
         </div>
         <div>
-        <button className = "mt-4 w-[60%] lg:w-[50%] bg-sky-500 mb-4" onClick = {checkout}>Checkout</button>
+        <button className = "mt-4 w-[60%] lg:w-[50%] bg-sky-500 mb-4 pb-3 pt-3 rounded-2xl" onClick = {checkout}>Checkout</button>
         </div>
         
       </div>  
