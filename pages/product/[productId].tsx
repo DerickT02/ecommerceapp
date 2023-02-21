@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import  { useRouter } from 'next/router'
-import { getOneProduct, addToCart } from "../../firebase/customerActions"
+import { getOneProduct, addToCart, writeProductReview } from "../../firebase/customerActions"
 import { useEffect, useState } from 'react'
 import { logout } from '../../firebase/auth'
 import { auth } from '../../firebase/config'
@@ -18,11 +18,30 @@ export default function Home() {
   const [rating, setRating] = useState(0.0)
   const [userID, setUserID] = useState("")
   const [productID, setProductId] = useState("")
+  const [userRating, setUserRating] = useState(0.0)
+  const [writeReview, setWriteReview] = useState(false)
+  const [reviewText, setReviewText] = useState("")
 
 
   const router = useRouter()
   
+  const toggleReview = () => {
+    setWriteReview(prev => !prev)
+  }
 
+  const changeRating = (e: any) => {
+    setUserRating(e.target.value)
+    console.log(userRating)
+  }
+
+  const changeUserReviewText = (e: any) => {
+    setReviewText(e.target.value)
+  }
+
+  const postReview = () => {
+    writeProductReview(productID, userRating, {review: reviewText, rating: userRating})
+    setWriteReview(false)
+  }
 
 
   useEffect(() => {
@@ -81,6 +100,16 @@ export default function Home() {
       <div className = "flex flex-col gap-[9] lg:flex-row mt-[100px] place-items-center">
         <div className = "text-center  lg:place-items-center">
           <img className = "lg:ml-[100px]" src = {productImage}></img>
+          
+          {writeReview ? 
+          <div className = "flex flex-col">
+            <input placeholder='Rating' inputMode='numeric' type='number' step = "0.1" min = "0" max="5" onChange={changeRating} className = 'border border-black mb-1' value = {userRating}></input>
+            <textarea placeholder='Write Review' value = {reviewText} onChange = {changeUserReviewText} className = 'border border-black'></textarea>
+            <button onClick={postReview}>Post Review</button>
+          </div> : 
+          <>
+          <button onClick={toggleReview}>Write Review</button>
+          </>}
         </div>
         <div className = "flex flex-col gap-12 text-center lg:ml-[25%]">
           <div className = "">
@@ -90,8 +119,20 @@ export default function Home() {
           <div className = "flex flex-col place-items-center">
             <button onClick={() => {addToCart(userID, product, productID)}} className = "bg-black text-white w-[70%] h-[50px] sm:w-[100%] sm:h-[70px] lg:w-[482px] lg:h-[81px] rounded-lg mb-[3%]">Add To Cart</button>
             <button className = "bg-green-500 text-white w-[70%] h-[50px] sm:w-[100%] sm:h-[70px] lg:w-[482px] lg:h-[81px] rounded-lg mb-[10%]">Buy Now</button>
-            {rating}
-            {reviews.length === 0 ? "No reviews" : "Reviews"}
+            <h1>{rating}</h1>
+            {reviews.length === 0 ? "No reviews" : 
+            <>
+            {reviews.map(review => {
+              return(
+                <div className = "flex flex-col">
+                  <h1>{review.review}</h1>
+                
+                 <h2>{review.rating}</h2>
+                </div>
+              )
+            })}
+            </>
+            }
           </div>
         </div>    
       </div>
