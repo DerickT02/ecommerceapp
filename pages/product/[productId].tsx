@@ -59,7 +59,7 @@ export default function Home() {
         setProductImage(res?.productImage)
         setProductPrice(+res?.productPrice)
         setReviews(res?.reviews)
-        setRating(res?.rating)
+        setRating(+res?.rating)
         setProduct({
           id: productId,
           productName: res?.productName,
