@@ -67,16 +67,25 @@ export async function writeProductReview(id: any, rating: number, review: object
     let selectedProduct = doc(db, "products", id)
     let selectedProductRef = await getDoc(selectedProduct)
     let reviews = selectedProductRef.data()?.reviews
-    let currRating  = +selectedProductRef.data()?.rating
-    console.log(currRating) 
-    currRating = (currRating + +rating) / reviews.length
+    
+     
     
     reviews.push(review)
     let newReviews = reviews
     await updateDoc(selectedProduct, {
         reviews: newReviews,
-        rating: currRating
     })
+
+    let currRating  = selectedProductRef.data()?.rating
+    console.log("currRating", currRating)
+    console.log(reviews.length)
+    currRating = (currRating + rating) / reviews.length
+    
+    await updateDoc(selectedProduct, {
+        rating: currRating,
+    })
+
+
     return "successfully wrote review"
 }
 
