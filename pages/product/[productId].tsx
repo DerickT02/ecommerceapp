@@ -102,10 +102,11 @@ export default function Home() {
           <img className = "lg:ml-[100px]" src = {productImage}></img>
           
           {writeReview ? 
-          <div className = "flex flex-col">
+          <div className = "flex flex-col g:place-items-center">
             <input placeholder='Rating' inputMode='numeric' type='number' step = "0.1" min = "0" max="5" onChange={changeRating} className = 'border border-black mb-1' value = {userRating}></input>
             <textarea placeholder='Write Review' value = {reviewText} onChange = {changeUserReviewText} className = 'border border-black'></textarea>
             <button onClick={postReview}>Post Review</button>
+            <button onClick = {toggleReview}>Cancel</button>
           </div> : 
           <>
           <button onClick={toggleReview}>Write Review</button>
@@ -119,14 +120,14 @@ export default function Home() {
           <div className = "flex flex-col place-items-center">
             <button onClick={() => {addToCart(userID, product, productID)}} className = "bg-black text-white w-[70%] h-[50px] sm:w-[100%] sm:h-[70px] lg:w-[482px] lg:h-[81px] rounded-lg mb-[3%]">Add To Cart</button>
             <button className = "bg-green-500 text-white w-[70%] h-[50px] sm:w-[100%] sm:h-[70px] lg:w-[482px] lg:h-[81px] rounded-lg mb-[10%]">Buy Now</button>
-            <h1>{rating}</h1>
+            <h1 className='mt-3 text-2xl' >Rating: {Math.round(rating * 10) / 10}</h1>
             {reviews.length === 0 ? "No reviews" : 
             <>
+            <h1 className='mt-3 text-2xl'>Reviews</h1>
             {reviews.map(review => {
               return(
-                <div className = "flex flex-col">
+                <div className = "flex flex-col mt-2 mb-2">
                   <h1>{review.review}</h1>
-                
                  <h2>{review.rating}</h2>
                 </div>
               )
