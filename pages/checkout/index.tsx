@@ -108,7 +108,7 @@ export default function Home() {
             return(
               <div key={index} className = "grid lg:grid-cols-4 place-items-center">
                 <div className = "flex lg:gap-4 flex-col lg:flex-row lg:place-items-center">
-                  <img alt ="" className = "lg:w-[100px] lg:h-[100px] w-[200px] h-[200px]" src = {item.productImage}></img>
+                  <img alt = "" className = "lg:w-[100px] lg:h-[100px] w-[200px] h-[200px]" src = {item.productImage}></img>
                   <p className = "text-center text-2xl lg:text-base">{item.productName}</p>
               </div>
               <div className = "text-2xl lg:text-lg border-[1px] border-black rounded-2xl pl-2 pr-2">
