@@ -49,9 +49,9 @@ export default function Home() {
 
     {/**/}
       <div className = "grid grid-cols-1 gap-5 lg:grid-cols-3 lg:grid-rows-3 lg:gap-10 mt-[100px] place-items-center">
-        {productsList.map((product) => {
+        {productsList.map((product, index) => {
           return(
-            <div className = "w-[80%] pt-1 pb-1 pl-9 pr-9 lg:pt-[85px] lg:pb-[85px] lg:w-[479px] lg:h-[382px] shadow-[0px_0px_60px_0px_rgba(0,0,0,0.3)]">
+            <div key = {index} className = "w-[80%] pt-1 pb-1 pl-9 pr-9 lg:pt-[85px] lg:pb-[85px] lg:w-[479px] lg:h-[382px] shadow-[0px_0px_60px_0px_rgba(0,0,0,0.3)]">
             <Link href = {{
               pathname: "/product/[productId]",
               query:{productId: product.id}

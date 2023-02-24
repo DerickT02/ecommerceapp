@@ -106,7 +106,7 @@ export default function Home() {
           {cart.map((item, index) => {
             console.log(index)
             return(
-              <div className = "grid lg:grid-cols-4 place-items-center">
+              <div key={index} className = "grid lg:grid-cols-4 place-items-center">
                 <div className = "flex lg:gap-4 flex-col lg:flex-row lg:place-items-center">
                   <img className = "lg:w-[100px] lg:h-[100px] w-[200px] h-[200px]" src = {item.productImage}></img>
                   <p className = "text-center text-2xl lg:text-base">{item.productName}</p>
