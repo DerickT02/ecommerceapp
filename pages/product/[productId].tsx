@@ -99,7 +99,7 @@ export default function Home() {
       <Nav />
       <div className = "flex flex-col gap-[9] lg:flex-row mt-[100px] place-items-center">
         <div className = "text-center  lg:place-items-center">
-          <img className = "lg:ml-[100px]" src = {productImage}></img>
+          <img alt ="" className = "lg:ml-[100px]" src = {productImage}></img>
           
           {writeReview ? 
           <div className = "flex flex-col g:place-items-center">
