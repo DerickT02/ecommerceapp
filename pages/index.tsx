@@ -57,7 +57,7 @@ export default function Home() {
               query:{productId: product.id}
             }}>
               <div className = "flex grow flex-col place-items-center">
-                <img className = "w-[200px] h-[200px] lg:w-[200px] lg:h-[200px]"  src = {product.productImage} ></img>
+                <img className = "w-[200px] h-[200px] lg:w-[200px] lg:h-[200px]" alt=""  src = {product.productImage} ></img>
                 <h2>{product.productName}</h2>
                 <h3>${product.productPrice}</h3>
               </div>
