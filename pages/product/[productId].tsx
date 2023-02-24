@@ -71,7 +71,7 @@ export default function Home() {
         
       })
     }
-  }, [])
+  })
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -124,9 +124,9 @@ export default function Home() {
             {reviews.length === 0 ? "No reviews" : 
             <>
             <h1 className='mt-3 text-2xl'>Reviews</h1>
-            {reviews.map(review => {
+            {reviews.map((review, index) => {
               return(
-                <div className = "flex flex-col mt-2 mb-2">
+                <div key = {index}  className = "flex flex-col mt-2 mb-2">
                   <h1>{review.review}</h1>
                  <h2>{review.rating}</h2>
                 </div>
